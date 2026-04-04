@@ -28,4 +28,14 @@ class ApplicationController extends Controller
 
         return redirect()->back();
     }
+
+    public function  update(Request $request, Application $application)
+    {
+
+    }
+
+    public function destroy(Application $application)
+    {
+
+    }
 }
