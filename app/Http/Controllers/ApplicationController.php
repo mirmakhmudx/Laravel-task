@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AnswerRequest;
+use App\Http\Requests\StoreRequest;
 use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
 class ApplicationController extends Controller
 {
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-
         if($this->chekDate())
         {
             return  redirect()->back()->with('error', 'You can create only 1 application a day ');
@@ -19,12 +20,6 @@ class ApplicationController extends Controller
         $file = $request->file('file');
         $name = $file?->getClientOriginalName();
         $path = $file?->storeAs('files', $name, 'public');
-
-        $request->validate([
-            'subject' => 'required|max:255',
-            'message' => 'required',
-            'file' => 'file|mimes:jpeg,png,jpg,gif,svg,pdf',
-        ]);
 
         $application = Application::create([
             'user_id' => auth()->id(),
@@ -48,4 +43,9 @@ class ApplicationController extends Controller
             return true;
         }
     }
+
+
+
+
+
 }
