@@ -10,6 +10,12 @@ use Illuminate\Support\Carbon;
 
 class ApplicationController extends Controller
 {
+
+
+    public function index()
+    {
+       return view('applications.index')->with(['applications'=> auth()->user()->applications()->latest()->paginate(3)]);
+    }
     public function store(StoreRequest $request)
     {
         if($this->chekDate())
